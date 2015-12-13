@@ -14,17 +14,41 @@
             </div>
         </div>
     </div>
-
-    <div class="container">
-        <p>Here is static content</p>
+    <div id="app-container">
+        <div id="main-region" class="container">
+            <p>Here is static content</p>
+        </div>
     </div>
 
-    <script src="./assets/assets/js/vendor/jquery.js"></script>
+    <script type="text/template" id="static-template">
+        <p>Static template - Text by Marionette</p>
+    </script>
+    <script type="text/template" id="different-static-template">
+        <p>Dynamic template - Text by Marionette</p>
+    </script>
+
+    <script src="./assets/js/vendor/jquery.js"></script>
     <script src="./assets/js/vendor/json2.js"></script>
     <script src="./assets/js/vendor/underscore.js"></script>
     <script src="./assets/js/vendor/backbone.js"></script>
     <script src="./assets/js/vendor/backbone.marionette.js"></script>
 
+    <script type="text/javascript">
+        var ContactManager = new Marionette.Application();
+        ContactManager.StaticView = Marionette.ItemView.extend({
+            el: "#main-region",
+            template: "#static-template"
+        });
+        ContactManager.on("start", function() {
+            var staticView = new ContactManager.StaticView({
+                template: "#different-static-template"
+            });
+            staticView.render();
+            console.log("ContactManager has started!");
+        });
+
+        ContactManager.start();
+    </script>
     </body>
 </html>
 
